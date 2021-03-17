@@ -2,7 +2,7 @@
   <div class="container" dir="rtl">
     <div class="row">
       <div class="col-12 my-4">
-        <h1 class="text-center text-info">لیست مناطق</h1>
+        <h2 class=" text-info">لیست مناطق</h2>
       </div>
     </div>
     <div class="row">
@@ -98,5 +98,8 @@ export default {
 .map {
   height: 80vh;
   border: 1px solid #888;
+}
+ul li {
+  list-style: none;
 }
 </style>

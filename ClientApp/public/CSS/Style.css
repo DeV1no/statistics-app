@@ -8,3 +8,16 @@ body {
     direction: ltr;
     text-align: right !important;
 }
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none !important;
+    border: none !important;
+}
+
+.active {
+    color: brown;
+}
