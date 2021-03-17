@@ -1,0 +1,10 @@
+@font-face {
+    font-family: Sahel;
+    src: url(../Sahel.woff);
+}
+
+body {
+    font-family: 'Sahel' !important;
+    direction: ltr;
+    text-align: right !important;
+}
