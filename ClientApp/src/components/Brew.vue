@@ -6,15 +6,6 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-6 brew-list float-left">
-        <div class="card" style="width:18rem">
-          <ul class="list-group list-group-flush">
-            <li class="li list-group-item" v-for="u in utm" :key="u.id">
-              {{ u.name }} , {{ u.city }}
-            </li>
-          </ul>
-        </div>
-      </div>
       <div class="col-6">
         <div class="map row">
           <LMap
@@ -33,6 +24,15 @@
               </li>
             </ul>
           </LMap>
+        </div>
+      </div>
+      <div class="col-6 brew-list float-right ml-auto">
+        <div class="card ml-auto" style="width:18rem">
+          <ul class="list-group list-group-flush">
+            <li class="li list-group-item" v-for="u in utm" :key="u.id">
+              {{ u.name }} , {{ u.city }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>

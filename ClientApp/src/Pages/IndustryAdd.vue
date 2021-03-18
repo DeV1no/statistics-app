@@ -9,14 +9,6 @@
       <div class="row">
         <div class="col-md-4">
           <form-input
-            label="نام صنعت"
-            :required="true"
-            id="name"
-            v-model="industry.name"
-          />
-        </div>
-        <div class="col-md-4">
-          <form-input
             label="کد پستی"
             :required="true"
             id="name"
@@ -31,10 +23,28 @@
             v-model="industry.city"
           />
         </div>
+        <div class="col-md-4">
+          <form-input
+            label="نام صنعت"
+            :required="true"
+            id="name"
+            v-model="industry.name"
+          />
+        </div>
       </div>
       <h5 class="text-info mt-5 mb-0">مختصات</h5>
 
       <div class="row ">
+        <div class="col-md-4 ">
+          <button class="btn btn-danger mt-5 mx-1">
+            <router-link class="text-white" to="/">
+              بازگشت
+            </router-link>
+          </button>
+          <button class="btn btn-success mt-5" @click.prevent="postIndustry">
+            افزودن صنعت
+          </button>
+        </div>
         <div class="col-md-4">
           <form-input
             label="طول جغرافیایی"
@@ -45,21 +55,11 @@
         </div>
         <div class="col-md-4">
           <form-input
-            label="طول جغرافیایی"
+            label="عرض جغرافیایی"
             :required="true"
             id="name"
             v-model="industry.latitude"
           />
-        </div>
-        <div class="col-md-4 ">
-          <button class="btn btn-danger mt-5 mx-1">
-            <router-link class="text-white" to="/">
-              بازگشت
-            </router-link>
-          </button>
-          <button class="btn btn-success mt-5" @click.prevent="postIndustry">
-            افزودن صنعت
-          </button>
         </div>
       </div>
       <div class="row"></div>
