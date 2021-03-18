@@ -32,15 +32,21 @@ namespace StatisticsApp.Controllers
         }
 
         [HttpGet("id", Name = "getUtm")]
-        public async Task<IActionResult> GetHotel(int id)
-        {
-            var utm = _context.Utms.FirstOrDefault(u => u.Id == id);
+        public async Task<ActionResult<UtmDetailDTO>> Get(int id)        {
+            var utm = await _context.Utms
+                .Include(u => u.FinancialToIndustries)
+                .ThenInclude(u => u.IndustryFinancial)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+            return _mapper.Map<UtmDetailDTO>(utm);
+
+            /*var utm = _context.Utms.FirstOrDefault(u => u.Id == id);
             if (utm == null)
             {
                 return NotFound();
             }
 
-            return Ok(utm);
+            return Ok(utm);*/
         }
 
         [HttpPost]
