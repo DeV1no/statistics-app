@@ -14,6 +14,8 @@ namespace StatisticsApp.Helpers
         {
             CreateMap<UTM, UtmDTO>().ReverseMap();
             CreateMap<UtmCreationDtO, UTM>();
+            CreateMap<TaxRate, TaxDTO>().ReverseMap();
+            CreateMap<TaxtCreationDTO, TaxRate>();
         }
     }
 }

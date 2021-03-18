@@ -16,5 +16,6 @@ namespace StatisticsApp.Data
         }
 
         public DbSet<UTM> Utms { get; set; }
+        public DbSet<TaxRate> TaxRates { get; set; }
     }
 }
