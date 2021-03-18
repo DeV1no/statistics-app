@@ -12,10 +12,16 @@ namespace StatisticsApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<FinancialToIndustry>().HasKey(x => new { x.UtmId, x.IndustryFinancialId });
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<UTM> Utms { get; set; }
         public DbSet<TaxRate> TaxRates { get; set; }
+        public DbSet<IndustryFinancial> IndustryFinancials { get; set; }
+
+        public DbSet<FinancialToIndustry> financialToIndustries { get; set; }
+
+
     }
 }

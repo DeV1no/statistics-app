@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using StatisticsApp.Data;
 
 namespace StatisticsApp.Entity
@@ -12,6 +13,7 @@ namespace StatisticsApp.Entity
         public double Lngitude { get; set; }
         public double Latitude { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public List<FinancialToIndustry> FinancialToIndustries { get; set; }
 
         public UTM()
         {

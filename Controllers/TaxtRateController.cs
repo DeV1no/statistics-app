@@ -39,6 +39,7 @@ namespace StatisticsApp.Controllers
         public async Task<ActionResult> Post([FromBody] TaxtCreationDTO taxtCreationDto)
         {
             var tax = _mapper.Map<UTM>(taxtCreationDto);
+            
             _context.Add(tax);
             await _context.SaveChangesAsync();
             return new CreatedAtRouteResult("getTaxById", new {id = tax.Id}, tax);
