@@ -21,3 +21,7 @@ a:hover {
 .active {
     color: brown;
 }
+
+ul.tree-children a {
+    display: none;
+}

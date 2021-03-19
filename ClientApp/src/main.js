@@ -3,6 +3,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import 'leaflet/dist/leaflet.css';
 import { Icon } from "leaflet";
+import LiquorTree from 'liquor-tree'
 
 delete Icon.Default.prototype._getIconUrl;
 
@@ -12,6 +13,8 @@ Icon.Default.mergeOptions({
     shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
 Vue.use(VueRouter)
+Vue.use(LiquorTree)
+
 Vue.config.productionTip = false
 import {
     Routes
