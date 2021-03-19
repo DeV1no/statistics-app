@@ -124,20 +124,9 @@
               <h5 class="text-info mt-4 mr-3">
                 نمودار ها :
               </h5>
-
-              <div class="row my-3 mr-1">
-                <div class="col-md-6">
-                  <p class="d-block text-border">
-                    طول جغرافیایی : 1232132131
-                  </p>
-                </div>
-                <div class="col-md-6">
-                  <p class="d-block text-border">
-                    عرض جغرافیایی : 1232132131
-                  </p>
-                </div>
-              </div>
+              <bar-chart :industryData="industryFinancial" />
             </div>
+            <!-- add fiinance -->
             <div v-else>
               <h6 class="text-info mt-3 mr-3">
                 افزودن رابطه مالی
@@ -163,14 +152,17 @@
 import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
 import axios from "axios";
 import FinancialForm from "../components/Forms/FinancialForm.vue";
+import BarChart from "../components/BarChart.vue";
 export default {
   components: {
     LMap,
     LTileLayer,
     LMarker,
 
-    FinancialForm
+    FinancialForm,
+    BarChart
   },
+
   data() {
     return {
       id: this.$route.params.id,

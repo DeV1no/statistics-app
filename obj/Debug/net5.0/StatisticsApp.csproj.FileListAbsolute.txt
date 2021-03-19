@@ -40,3 +40,5 @@
 /home/dev1/Desktop/VueTask/StatisticsApp/StatisticsApp/bin/Debug/net5.0/AutoMapper.dll
 /home/dev1/Desktop/VueTask/StatisticsApp/StatisticsApp/bin/Debug/net5.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 /home/dev1/Desktop/VueTask/StatisticsApp/StatisticsApp/bin/Debug/net5.0/Newtonsoft.Json.dll
+/home/dev1/Desktop/VueTask/StatisticsApp/StatisticsApp/bin/Debug/net5.0/package-lock.json
+/home/dev1/Desktop/VueTask/StatisticsApp/StatisticsApp/bin/Debug/net5.0/package.json
