@@ -32,10 +32,13 @@ namespace StatisticsApp.Controllers
         }
 
         [HttpGet("id", Name = "getUtm")]
-        public async Task<ActionResult<UtmDetailDTO>> Get(int id)        {
+        public async Task<ActionResult<UtmDetailDTO>> Get(int id)
+        {
             var utm = await _context.Utms
                 .Include(u => u.FinancialToIndustries)
                 .ThenInclude(u => u.IndustryFinancial)
+                .Include(u => u.OficeToUtm)
+                .ThenInclude(u => u.CentralOfice)
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             return _mapper.Map<UtmDetailDTO>(utm);
@@ -53,7 +56,7 @@ namespace StatisticsApp.Controllers
         public async Task<ActionResult> Post([FromBody] UtmCreationDtO utmCreationDtO)
         {
             var utm = _mapper.Map<UTM>(utmCreationDtO);
-             _context.Add(utm);
+            _context.Add(utm);
             await _context.SaveChangesAsync();
             return new CreatedAtRouteResult("getUtm", new {id = utm.Id}, utm);
         }

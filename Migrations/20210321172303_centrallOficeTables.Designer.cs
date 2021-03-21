@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StatisticsApp.Data;
 
 namespace StatisticsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210321172303_centrallOficeTables")]
+    partial class centrallOficeTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,13 +166,13 @@ namespace StatisticsApp.Migrations
             modelBuilder.Entity("StatisticsApp.Entity.OficeToUtm", b =>
                 {
                     b.HasOne("StatisticsApp.Entity.CentralOfice", "CentralOfice")
-                        .WithMany("OficeToUtm")
+                        .WithMany()
                         .HasForeignKey("CentralOficeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("StatisticsApp.Entity.UTM", "UTM")
-                        .WithMany("OficeToUtm")
+                        .WithMany()
                         .HasForeignKey("UtmId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -178,11 +180,6 @@ namespace StatisticsApp.Migrations
                     b.Navigation("CentralOfice");
 
                     b.Navigation("UTM");
-                });
-
-            modelBuilder.Entity("StatisticsApp.Entity.CentralOfice", b =>
-                {
-                    b.Navigation("OficeToUtm");
                 });
 
             modelBuilder.Entity("StatisticsApp.Entity.IndustryFinancial", b =>
@@ -193,8 +190,6 @@ namespace StatisticsApp.Migrations
             modelBuilder.Entity("StatisticsApp.Entity.UTM", b =>
                 {
                     b.Navigation("FinancialToIndustries");
-
-                    b.Navigation("OficeToUtm");
                 });
 #pragma warning restore 612, 618
         }
