@@ -62,7 +62,29 @@
           />
         </div>
       </div>
-      <div class="row"></div>
+      <div class="row">
+        <div class="col-md-6"></div>
+
+        <div class="col-md-6">
+          <div class="map">
+            <LMap
+              @click="add"
+              @ready="onReady"
+              @locationfound="onLocationFound"
+              :zoom="zoom"
+              :center="center"
+            >
+              <LTileLayer :url="url"></LTileLayer>
+
+              <ul>
+                <li v-for="(l, i) in latlong" :key="i">
+                  <LMarker :lat-lng="l"></LMarker>
+                </li>
+              </ul>
+            </LMap>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 </template>
@@ -70,9 +92,16 @@
 <script>
 import axios from "axios";
 import FormInput from "../components/Forms/FormInput";
+import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
+
 export default {
   data() {
     return {
+      zoom: 5,
+      center: [31.887178, 54.3579483],
+      url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
+      latlong: [],
+
       industry: {
         name: "",
         city: "",
@@ -83,6 +112,22 @@ export default {
     };
   },
   methods: {
+    onReady(mapObject) {
+      mapObject.locate();
+    },
+    onLocationFound(location) {
+      console.log(location);
+    },
+    add(event) {
+      this.latlong.push(event.latlng.lat);
+      this.latlong.push(event.latlng.lng);
+
+      this.industry.lngitude = this.latlong[1];
+      this.industry.latitude = this.latlong[0];
+    },
+    remove() {
+      this.latlong.splice(-1, 1);
+    },
     postIndustry() {
       try {
         axios.post("/api/Utm", this.industry).then(res => {
@@ -96,14 +141,21 @@ export default {
     }
   },
   components: {
-    FormInput
+    FormInput,
+    LMap,
+    LTileLayer,
+    LMarker
   }
 };
 </script>
 
 <style scoped>
 .map {
-  height: 80vh;
+  height: 50vh;
   border: 1px solid #888;
+  margin-bottom: 1rem;
+}
+li {
+  list-style: none;
 }
 </style>
