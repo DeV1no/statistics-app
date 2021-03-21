@@ -35,7 +35,7 @@ namespace StatisticsApp
             services.AddDbContext<ApplicationDbContext>(opt =>
             {
                 opt.UseMySql(Configuration.GetConnectionString("MariaDbConnection"),
-                    new MariaDbServerVersion(new System.Version(10, 5, 0)));
+                    new MariaDbServerVersion(new System.Version(10, 5, 9)));
             });
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
