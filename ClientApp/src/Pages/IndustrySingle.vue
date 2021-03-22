@@ -17,6 +17,7 @@
               @click="
                 isInfoMode = true;
                 isFinanceMode = false;
+                isOficialCenterMode = false;
               "
             >
               مشخصات عمومی
@@ -26,9 +27,20 @@
               @click="
                 isInfoMode = false;
                 isFinanceMode = true;
+                isOficialCenterMode = true;
               "
             >
               بخش مالی
+            </li>
+            <li
+              class="list-group-item grab"
+              @click="
+                isInfoMode = false;
+                isFinanceMode = false;
+                isOficialCenterMode = true;
+              "
+            >
+              دفتر مرکزی
             </li>
           </ul>
         </div>
@@ -36,105 +48,22 @@
       <div class="col-md-8 ">
         <div class="card bg-light">
           <!-- info -->
-          <div v-if="isInfoMode">
-            <div class="row mr-3 my-3">
-              <div class="col-md-6">
-                <p class="d-block text-border">
-                  نام مرکز : {{ industryData.name }}
-                </p>
-              </div>
-              <div class="col-md-6">
-                <p class="d-block text-border">
-                  استان : {{ industryData.city }}
-                </p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mr-5 text-border">
-                کد پستی : {{ industryData.postalCode }}
-              </div>
-            </div>
-            <h5 class="text-info mt-4 mr-3">
-              زون بندی :
-            </h5>
-
-            <div class="row my-3 mr-1">
-              <div class="col-md-6">
-                <p class="d-block text-border">
-                  طول جغرافیایی : {{ industryData.lngitude }}
-                </p>
-              </div>
-              <div class="col-md-6">
-                <p class="d-block text-border">
-                  عرض جغرافیایی : {{ industryData.latitude }}
-                </p>
-              </div>
-            </div>
-            <div class="map row">
-              <LMap
-                @ready="onReady"
-                @locationfound="onLocationFound"
-                :zoom="zoom"
-                :center="center"
-              >
-                <LTileLayer :url="url"></LTileLayer>
-
-                <ul>
-                  <li v-for="(l, i) in latlong" :key="i">
-                    <LMarker :lat-lng="l"></LMarker>
-                  </li>
-                </ul>
-              </LMap>
-            </div>
-          </div>
+          <industry-info
+            v-if="isInfoMode"
+            :industryDataAr="industryDataAr"
+            :latlong="latlong"
+          />
           <!-- finance -->
-          <div v-if="isFinanceMode">
-            <div v-if="industryFinancial != null">
-              <div class="row mr-3 my-3">
-                <div class="col-md-6">
-                  <p class="d-block text-border">
-                    بیشترین حقوق : {{ industryFinancial.maxSalary }}
-                  </p>
-                </div>
-                <div class="col-md-6">
-                  <p class="d-block text-border">
-                    کم ترین حقوق : {{ industryFinancial.minSalary }}
-                  </p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-10 mr-5 text-border">
-                  میانگین حقوق = (کمترین حقوق + بیشترین حقوق) / 2 =
+          <industry-finance
+            v-if="isFinanceMode"
+            :industryFinancial="industryFinancial"
+          />
+          <!-- oficial Center -->
+          <oficial-center
+            v-if="isOficialCenterMode"
+            :centralOfice="centralOfice"
+          />
 
-                  <span class="badge badge-success py-1">
-                    {{ industryFinancial.averageSalary }}
-                  </span>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-10 mr-5 text-border">
-                  مالیات = میانگین حقوقی X نرخ مالیات =
-
-                  <span class="badge badge-danger py-1">
-                    {{ industryFinancial.exempt }}
-                  </span>
-                </div>
-              </div>
-              <h5 class="text-info mt-4 mr-3">
-                نمودار ها :
-              </h5>
-              <bar-chart :industryData="industryFinancial" />
-            </div>
-            <!-- add fiinance -->
-            <div v-else>
-              <h6 class="text-info mt-3 mr-3">
-                افزودن رابطه مالی
-              </h6>
-
-              <financial-form />
-            </div>
-          </div>
           <div class="w-100 alert alert-info mb-0">
             تاریخ آخرین بروز رسانی :
 
@@ -149,18 +78,15 @@
 </template>
 
 <script>
-import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
 import axios from "axios";
-import FinancialForm from "../components/Forms/FinancialForm.vue";
-import BarChart from "../components/BarChart.vue";
+import IndustryInfo from "../components/SingleIndustry/IndustryInfo.vue";
+import IndustryFinance from "../components/SingleIndustry/IndustryFinance.vue";
+import OficialCenter from "../components/SingleIndustry/OficialCenter.vue";
 export default {
   components: {
-    LMap,
-    LTileLayer,
-    LMarker,
-
-    FinancialForm,
-    BarChart
+    IndustryInfo,
+    IndustryFinance,
+    OficialCenter
   },
 
   data() {
@@ -168,8 +94,11 @@ export default {
       id: this.$route.params.id,
       isInfoMode: true,
       isFinanceMode: false,
+      isOficialCenterMode: false,
       industryData: "",
+      industryDataAr: [],
       industryFinancial: "",
+      centralOfice: "",
       url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png",
       zoom: 5.3,
       center: [31.887178, 54.3579483],
@@ -186,8 +115,11 @@ export default {
     getIndustryById() {
       axios.get(`/api/Utm/id?id=${this.id}`).then(res => {
         this.industryData = res.data;
-        this.industryFinancial = res.data.industryFinancial[0];
+        this.industryFinancial = res.data.industryFinancial;
+        this.centralOfice = res.data.centralOfice;
         this.getUtm(res.data.latitude, res.data.lngitude);
+        // console.log(this.industryData);
+        this.industryDataAr.push(res.data);
       });
     },
     onLocationFound(location) {
@@ -205,8 +137,8 @@ export default {
       this.latlong.push(a);
     }
   },
-  async mounted() {
-    await this.getIndustryById();
+  created() {
+    this.getIndustryById();
   }
 };
 </script>
