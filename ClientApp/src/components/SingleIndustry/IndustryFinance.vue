@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="industryFinancial != null">
+    <div v-if="industryFinancial[0] != null">
       <div class="row mr-3 my-3">
         <div class="col-md-6">
           <p class="d-block text-border">

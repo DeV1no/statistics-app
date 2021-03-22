@@ -27,7 +27,7 @@
               @click="
                 isInfoMode = false;
                 isFinanceMode = true;
-                isOficialCenterMode = true;
+                isOficialCenterMode = false;
               "
             >
               بخش مالی
@@ -117,8 +117,15 @@ export default {
         this.industryData = res.data;
         this.industryFinancial = res.data.industryFinancial;
         this.centralOfice = res.data.centralOfice;
-        this.getUtm(res.data.latitude, res.data.lngitude);
-        // console.log(this.industryData);
+        this.getUtm(res.data.latitude, res.data.lngitude, res.data.name);
+        console.log(res.data.centralOfice.length !== 0);
+        if (res.data.centralOfice.length !== 0) {
+          this.getOficialUtm(
+            res.data.centralOfice[0].latitude,
+            res.data.centralOfice[0].lngitude,
+            res.data.centralOfice[0].name
+          );
+        }
         this.industryDataAr.push(res.data);
       });
     },
@@ -128,13 +135,21 @@ export default {
     onReady(mapObject) {
       mapObject.locate();
     },
-    getUtm(latitude, lngitude) {
+    getUtm(latitude, lngitude, name) {
       var a = [];
 
       a.push(latitude);
       a.push(lngitude);
+      a.push(name);
 
       this.latlong.push(a);
+    },
+    getOficialUtm(olatitude, olngitude, oname) {
+      var b = [];
+      b.push(olatitude);
+      b.push(olngitude);
+      b.push(oname);
+      this.latlong.push(b);
     }
   },
   created() {

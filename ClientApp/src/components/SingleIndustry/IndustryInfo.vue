@@ -39,10 +39,16 @@
         :center="center"
       >
         <LTileLayer :url="url"></LTileLayer>
+        <l-control-polyline-measure
+          :options="{ showUnitControl: true }"
+          position="bottomright"
+        />
 
         <ul>
           <li v-for="(l, i) in latlong" :key="i">
-            <LMarker :lat-lng="l"></LMarker>
+            <LMarker :lat-lng="l"
+              ><l-tooltip>{{ l[2] }}</l-tooltip></LMarker
+            >
           </li>
         </ul>
       </LMap>
@@ -51,7 +57,9 @@
 </template>
 
 <script>
-import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
+import { LMap, LTileLayer, LMarker, LTooltip } from "vue2-leaflet";
+import LControlPolylineMeasure from "vue2-leaflet-polyline-measure";
+
 export default {
   props: {
     latlong: Array,
@@ -60,7 +68,10 @@ export default {
   components: {
     LMap,
     LTileLayer,
-    LMarker
+    LMarker,
+    LTooltip,
+
+    LControlPolylineMeasure
   },
   data() {
     return {
