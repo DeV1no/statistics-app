@@ -1,7 +1,7 @@
 <template>
   <!-- v-if="isOficialCenterMode -->
   <div>
-    <div v-if="centralOfice != null">
+    <div v-if="centralOfice[0] != null">
       <div class="row mr-3 my-3">
         <div class="col-md-6">
           <p class="d-block text-border">
@@ -45,20 +45,31 @@
     <!-- add fiinance -->
     <div v-else>
       <h6 class="text-info mt-3 mr-3">
-        افزودن رابطه مالی
+        دفتر مرکزی
       </h6>
 
-      <financial-form />
+      <oficial-form />
     </div>
   </div>
 </template>
 
 <script>
+import OficialForm from "../Forms/OficialForm.vue";
 export default {
   props: {
     centralOfice: Array
+  },
+  components: {
+    OficialForm
   }
 };
 </script>
 
-<style></style>
+<style scoped>
+.text-border {
+  background-color: rgb(247, 244, 244) !important;
+  -webkit-box-shadow: 4px 4px 10px -8px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 10px -8px rgba(0, 0, 0, 0.2);
+  padding: 0.45rem;
+}
+</style>

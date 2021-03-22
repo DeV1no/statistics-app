@@ -63,4 +63,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.text-border {
+  background-color: rgb(247, 244, 244) !important;
+  -webkit-box-shadow: 4px 4px 10px -8px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 10px -8px rgba(0, 0, 0, 0.2);
+  padding: 0.45rem;
+}
+</style>
