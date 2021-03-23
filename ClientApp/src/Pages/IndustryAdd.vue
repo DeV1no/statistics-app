@@ -97,6 +97,7 @@ import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
 export default {
   data() {
     return {
+      newIndustryId: "",
       zoom: 5,
       center: [31.887178, 54.3579483],
       url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
@@ -131,8 +132,9 @@ export default {
     postIndustry() {
       try {
         axios.post("/api/Utm", this.industry).then(res => {
+          this.newIndustryId = res.data.id;
           if (res.status == 201) {
-            this.$router.push("/");
+            this.$router.push(`/industry/${this.newIndustryId}`);
           }
         });
       } catch (error) {

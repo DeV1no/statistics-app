@@ -45,7 +45,7 @@ ul li {
 
 .sidebar-navigation {
   display: inline-block;
-  min-height: 100vh;
+  min-height: 140vh;
   width: 80px;
   background-color: #313443;
   float: left;

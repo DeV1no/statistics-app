@@ -179,7 +179,8 @@ export default {
   },
 
   async created() {},
-  async beforeMount() {
+  async beforeMount() {},
+  async mounted() {
     await this.$refs.tree.$on("node:editing:start", node => {
       console.log("Start editing: " + node.text);
     });
@@ -187,8 +188,6 @@ export default {
     await this.$refs.tree.$on("node:editing:stop", (node, isTextChanged) => {
       console.log("Stop editing: " + node.text + ", " + isTextChanged);
     });
-  },
-  async mounted() {
     await this.getUtm();
     await this.getUtmByid();
     await this.$refs.tree.$on("node:editing:start", node => {
