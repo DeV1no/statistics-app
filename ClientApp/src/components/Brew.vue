@@ -53,6 +53,11 @@
                 <router-link :to="{ name: 'Industry', params: { id: node.id } }"
                   >مشاهده پروفایل صنعت</router-link
                 >
+                <p class="text-danger" @click="deleteIndustry(node.id)">
+                  <a href="">
+                    حذف صنعت
+                  </a>
+                </p>
               </div>
             </div>
           </tree>
@@ -175,6 +180,9 @@ export default {
           console.log(this.datas);
         });
       });
+    },
+    deleteIndustry(id) {
+      axios.delete(`/api/Utm/${id}`).then(res => console.log(res.data));
     }
   },
 
@@ -190,13 +198,6 @@ export default {
     });
     await this.getUtm();
     await this.getUtmByid();
-    await this.$refs.tree.$on("node:editing:start", node => {
-      console.log("Start editing: " + node.text);
-    });
-
-    await this.$refs.tree.$on("node:editing:stop", (node, isTextChanged) => {
-      console.log("Stop editing: " + node.text + ", " + isTextChanged);
-    });
   }
 };
 </script>

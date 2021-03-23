@@ -22,6 +22,7 @@ a:hover {
     color: brown;
 }
 
-ul.tree-children a {
+ul .tree-children a,
+ul .tree-children p {
     display: none;
 }
