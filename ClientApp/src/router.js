@@ -4,6 +4,7 @@ Vue.use(VueRouter)
 import Brew from './components/Brew.vue'
 import IndustryAdd from "./Pages/IndustryAdd"
 import IndustrySingle from "./Pages/IndustrySingle"
+import Charts from "./Pages/Charts"
 export const Routes = [
     // history: createWebHistory(),
     {
@@ -13,6 +14,10 @@ export const Routes = [
     {
         path: '/IndustryAdd',
         component: IndustryAdd
+    },
+    {
+        path: '/Charts',
+        component: Charts
     },
     {
         path: '/Industry/:id',

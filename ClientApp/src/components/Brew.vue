@@ -166,7 +166,7 @@ export default {
       });
     },
     getUtmByid() {
-      let g = [1, 2];
+      let g = [2, 5, 6, 7, 8, 9];
       g.forEach(d => {
         console.log(d);
         axios.get(`api/Utm/id?id=${d}`).then(res => {
@@ -189,13 +189,6 @@ export default {
   async created() {},
   async beforeMount() {},
   async mounted() {
-    await this.$refs.tree.$on("node:editing:start", node => {
-      console.log("Start editing: " + node.text);
-    });
-
-    await this.$refs.tree.$on("node:editing:stop", (node, isTextChanged) => {
-      console.log("Stop editing: " + node.text + ", " + isTextChanged);
-    });
     await this.getUtm();
     await this.getUtmByid();
   }

@@ -15,6 +15,12 @@
           <span class="tooltip">افزودن صنعت</span>
         </router-link>
       </li>
+      <li class="ml-5">
+        <router-link to="/charts" active-class="active">
+          <i class="fas fa-chart-bar"></i>
+          <span class="tooltip">آمار و ارقام</span>
+        </router-link>
+      </li>
       <li>
         <i class="fa fa-newspaper-o"></i>
         <span class="tooltip">Contacts</span>
