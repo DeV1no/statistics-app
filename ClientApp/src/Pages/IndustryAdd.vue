@@ -67,13 +67,7 @@
 
         <div class="col-md-6">
           <div class="map">
-            <LMap
-              @click="add"
-              @ready="onReady"
-              @locationfound="onLocationFound"
-              :zoom="zoom"
-              :center="center"
-            >
+            <LMap @click="add" @ready="onReady" :zoom="zoom" :center="center">
               <LTileLayer :url="url"></LTileLayer>
 
               <ul>
@@ -82,6 +76,9 @@
                 </li>
               </ul>
             </LMap>
+            <button @click.prevent="remove" class="btn btn-danger">
+              حذف پین
+            </button>
           </div>
         </div>
       </div>
@@ -120,14 +117,20 @@ export default {
       console.log(location);
     },
     add(event) {
-      this.latlong.push(event.latlng.lat);
-      this.latlong.push(event.latlng.lng);
+      let a = [];
+      this.latlong = [];
+      a.push(event.latlng.lat);
+      a.push(event.latlng.lng);
 
-      this.industry.lngitude = this.latlong[1];
-      this.industry.latitude = this.latlong[0];
+      this.latlong.push(a);
+
+      this.industry.lngitude = a[1];
+      this.industry.latitude = a[0];
     },
     remove() {
       this.latlong.splice(-1, 1);
+      this.industry.lngitude = "";
+      this.industry.latitude = "";
     },
     postIndustry() {
       try {

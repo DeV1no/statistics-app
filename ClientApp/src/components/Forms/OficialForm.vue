@@ -50,13 +50,7 @@
     <div class="row">
       <div class="col-md-11 mr-4">
         <div class="map">
-          <LMap
-            @click="add"
-            @ready="onReady"
-            @locationfound="onLocationFound"
-            :zoom="zoom"
-            :center="center"
-          >
+          <LMap @click="add" @ready="onReady" :zoom="zoom" :center="center">
             <LTileLayer :url="url"></LTileLayer>
 
             <ul>
@@ -65,6 +59,9 @@
               </li>
             </ul>
           </LMap>
+          <button class="btn btn-danger" @click.prevent="remove">
+            حذف پین
+          </button>
         </div>
       </div>
     </div>
@@ -115,14 +112,20 @@ export default {
       console.log(location);
     },
     add(event) {
-      this.latlong.push(event.latlng.lat);
-      this.latlong.push(event.latlng.lng);
+      let a = [];
+      this.latlong = [];
+      a.push(event.latlng.lat);
+      a.push(event.latlng.lng);
 
-      this.oficialCenter.lngitude = this.latlong[1];
-      this.oficialCenter.latitude = this.latlong[0];
+      this.latlong.push(a);
+
+      this.oficialCenter.lngitude = a[1];
+      this.oficialCenter.latitude = a[0];
     },
     remove() {
       this.latlong.splice(-1, 1);
+      this.oficialCenter.lngitude = "";
+      this.oficialCenter.latitude = "";
     },
     postOficeRell() {
       this.oficialCenter.utmId.push(this.id);
